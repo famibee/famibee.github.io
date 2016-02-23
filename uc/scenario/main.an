@@ -5,7 +5,7 @@
 	[add_lay layer=2 class=grp]
 	[add_lay layer=mes class=txt]
 
-	[loadplugin fn="_notice"]
+	[loadplugin fn="notice"]
 	[loadplugin fn="plgTweensy"]
 	[call fn=ext_*]		; ext_**.anというスクリプトを全部コールする
 
