@@ -1,6 +1,7 @@
 	[return cond="const.plgConfig.inited"]
 	&const.plgConfig.inited = true
 
+
 	[sys_syslay.init]
 	[loadplugin fn="plgConfig"]
 
