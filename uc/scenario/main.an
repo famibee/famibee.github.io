@@ -20,7 +20,7 @@
 ;	[update_check url="http://ugainovel.ddo.jp/UnderCherry/ver.xml" config_fn="update.xml" cond="! const.flash.system.Capabilities.isDebugger"]
 
 	[call fn="sub"]
-	[call fn="_yesno"]
+	[call fn="yesno"]
 
 [char2macro char=@ name=l]
 [char2macro char=\ name=plc]
