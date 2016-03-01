@@ -1,0 +1,11 @@
+<config>
+  <first_script fn="main"/>
+  <save_ns name="com.fc2.web.famibee.Emote" localpath="/"/>
+  <search>
+    <path dir="mat"/>
+    <path dir="plg"/>
+  </search>
+  <coder len="0x360"/>
+  <window width="500" height="768"/>
+  <anbook title="アニメ立ち絵実験" cre_url="https://twitter.com/#!/ugainovel" publisher="電子演劇部" pub_url="http://famibee.blog38.fc2.com/" detail="E-moteによる連番png→apng変換し、表示したサンプルです" nocode="true" pack_exc="\.swf\.cache" creator="famibee"/>
+</config>
