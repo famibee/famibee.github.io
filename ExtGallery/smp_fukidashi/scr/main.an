@@ -5,8 +5,9 @@
 	; *** テキストレイヤ縦書き左設定 ***
 	[txt_lay_v_left page=fore]
 
-[lay * layer="mes" page=fore layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
-[lay * layer="mes" page=back layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
+[lay layer="mes" page=fore layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
+[lay layer="mes" page=back layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
+[trace text=0]
 
 	[lay layer=base fn="背景" visible=true]
 
