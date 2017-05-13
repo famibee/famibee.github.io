@@ -8,7 +8,7 @@
 
 *loop
 	[lay layer=0 fn="人" visible=true]
-;	[ふきだし]
+	[ふきだし]
 　吹き出しサンプル。[r]
 　png画像などを色んなアニメ表示してみます。[plc visible=false]
 
