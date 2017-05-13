@@ -424,7 +424,7 @@
 [endmacro]
 
 [macro name="漫符_びしっ"]
-	[lay layer=漫符 fn=漫符_びしっ left=525 top=335 scale_x=3 scale_y=3 visible=true]
+	[lay layer=漫符 fn=Manpu_Bishi left=525 top=335 scale_x=3 scale_y=3 visible=true]
 	[tsy layer=漫符 time=500 scaleX=1 scaleY=1 ease=Back.easeOut]
 	[se fn=WhipD@22]
 [endmacro]
