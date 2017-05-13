@@ -1,4 +1,9 @@
 ;*********************************************************
+; サーバーアップのため、濁音問題があり一部ファイル名を変更
+;	ふきだし
+;	ふきだし
+;	→他のサンプルで【東北ずん子.apng】が動くのが謎だが。
+;*********************************************************
 ;	レイヤ準備
 ; ***桜・空サンプルで使うなら、main.anに書いてね♥
 	[add_lay layer=base class=grp]
@@ -345,7 +350,7 @@
 	[txt_lay_ふきだし]
 	[trans * layer="mes" time=%time|300]
 
-	[lay layer=ふきだし fn=Fukidashi left=&650-50 top=&62+384*0.3 scale_y=0.7 visible=true]
+	[lay layer=ふきだし fn=ふきだし left=&650-50 top=&62+384*0.3 scale_y=0.7 visible=true]
 	[tsy layer=ふきだし time=700 x="=50" y=62 scaleY=1 ease=Elastic.easeOut]
 
 	[wt]
