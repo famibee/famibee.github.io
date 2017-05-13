@@ -18,6 +18,7 @@
 	[add_lay layer=mes class=txt]
 
 	[loadplugin fn="plgTweensy"]
+	[loadplugin fn="ipam"]		; Web用
 
 
 ; ***以下はsub.anにマージ
