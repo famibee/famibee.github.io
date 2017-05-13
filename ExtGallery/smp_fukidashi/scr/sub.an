@@ -1,3 +1,4 @@
+;#USE-FONT	ipam
 ;*********************************************************
 ; サーバーアップのため、濁音問題があり一部ファイル名を変更
 ;	ふきだし
@@ -72,7 +73,7 @@
 
 	; テキストレイヤ全画面設定
 	[txt_lay_fullscreen b_alpha=0]
-	[lay layer="mes" page=back layout='fontFamily="IPA明朝cff" fontLookup="embeddedCFF"']
+	[lay layer="mes" page=back layout='fontFamily="ipam" fontLookup="embeddedCFF"']
 	[grp bg="black"]
 
 	[record_place layer="base,0,1,2,mes"]
