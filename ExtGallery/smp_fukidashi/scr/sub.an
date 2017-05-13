@@ -20,6 +20,10 @@
 
 	[loadplugin fn="plgTweensy"]
 
+;	[lay layer="mes" page=fore layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
+;	[lay layer="mes" page=back layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
+;	[trace text=3]
+
 
 ; ***以下はsub.anにマージ
 ; ***桜・空サンプルで使うなら、[sys_resume_save]を有効にしてね♥
