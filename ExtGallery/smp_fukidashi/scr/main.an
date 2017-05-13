@@ -5,6 +5,9 @@
 	; *** テキストレイヤ縦書き左設定 ***
 	[txt_lay_v_left page=fore]
 
+&an.chkFontMode = true
+	; 開発中は true にしておくとフォント組み込み忘れを防げる
+	; （このままリリースしても問題なし）
 [lay layer="mes" page=fore layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
 [lay layer="mes" page=back layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
 [trace text=0]
