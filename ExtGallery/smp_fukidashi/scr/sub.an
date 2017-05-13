@@ -1,0 +1,520 @@
+;*********************************************************
+;	レイヤ準備
+; ***桜・空サンプルで使うなら、main.anに書いてね♥
+	[add_lay layer=base class=grp]
+	[loadplugin fn="plgTweensyFX"]
+	[loadplugin fn="plgFire"]
+	[add_lay layer=0 class=grp]
+	[add_lay layer=1 class=grp]
+	[add_lay layer=2 class=grp]
+	[add_lay layer=前効果 class=grp]
+	[add_lay layer=ふきだし class=grp]
+	[add_lay layer=漫符 class=grp]
+	[add_lay layer=mes class=txt]
+
+	[loadplugin fn="plgTweensy"]
+
+
+; ***以下はsub.anにマージ
+; ***桜・空サンプルで使うなら、[sys_resume_save]を有効にしてね♥
+;*********************************************************
+;	定数
+;*********************************************************
+;（略）
+
+;*********************************************************
+; マクロ タイトル開始共通処理（main.anで呼ぶ）
+;*********************************************************
+[macro name=sys_title_start]
+	[let name="lastVoice" text=""]
+	[let name="isGameState" text=false]
+	[let name="sys:doResume" text=false]
+	[let name="save:an.doRecLog" text=false]
+
+	[txt_lay_fullscreen b_alpha=0 onend=leave]
+	[er]	; ページ両面の文字消去＆改ページ
+		; （改ページしないと履歴がページからあふれる）
+	[set_focus to=null]
+	[fadeoutse buf="SE" time=500]
+
+	[fire_clear]
+	[clear_天候]
+[endmacro]
+
+;*********************************************************
+; マクロ タイトル表示処理
+;*********************************************************
+[macro name=scenario_start]
+	[let name="isGameState" text=false]
+
+	; *** タイトルを履歴に残す ***
+	[rec_r]
+	[rec_ch text="&'「'+ mp.title +'」'"]
+
+[endmacro]
+
+;*********************************************************
+; マクロ シナリオ開始時共通処理（ロード時にもコール）
+;*********************************************************
+[macro name=sys_scenario_start]
+	[let name="lastVoice" text=""]
+	[let name="isGameState" text=true]
+	[let name="save:an.doRecLog" text=true]
+
+	[fadeoutbgm time=300]
+	[fadeoutse buf="SE" time=500]
+
+	; テキストレイヤ全画面設定
+	[txt_lay_fullscreen b_alpha=0]
+	[lay layer="mes" page=back layout='fontFamily="IPA明朝cff" fontLookup="embeddedCFF"']
+	[grp bg="black"]
+
+	[record_place layer="base,0,1,2,mes"]
+		[sys_resume_save cond="! sys:doResume && ! no_resume_save"]
+		[let name="sys:doResume" text=true]
+
+[jump label=*game_inited cond="const.game.inited"]
+[let name="const.game.inited" text=true]
+	[loadplugin fn="ipam_cff"]
+
+	[loadplugin fn="plgQuake"]
+
+	[call fn="_hidetext"]
+	[call fn="_submenu"]
+	[call fn="_saveload"]
+	[call fn="_history"]
+	[call fn="_config"]
+
+;（略）
+
+	[event global=true call=true key=a label=*toggle_auto_read]
+	[event global=true call=true key=f label=*toggle_skip]
+
+*game_inited
+	[lay layer="_syslay.mes" page=fore visible=false]
+	[lay layer="_syslay.mes" page=back visible=false]
+	[clear_lay layer="_syslay.mes" page=both]
+	[lay layer="_syslay.bg" page=fore visible=false]
+	[lay layer="_syslay.bg" page=back visible=false]
+	[clear_lay layer="_syslay.bg" page=both]
+
+	[enable_event enabled=true]
+	[set_focus to=null]
+
+	[fire_clear]
+	[clear_天候]
+[endmacro]
+
+;*********************************************************
+; マクロ レジューム処理
+[macro name=sys_resume_load]
+	[jump fn=_saveload label=*do_load_resume cond=sys:doResume&&!const.an.key.escape]
+[endmacro]
+
+;*********************************************************
+; マクロ レジューム退避処理
+[macro name=sys_resume_save]
+; ***桜・空サンプルで使うなら、有効にしてね♥
+;	[call fn=_saveload label=*do_save_resume]
+[endmacro]
+
+;*********************************************************
+; マクロ システム用レイヤ初期化
+[macro name=sys_syslay.init]
+	[jump label=*_syslay.inited cond="const._syslay.inited"]
+	[add_lay layer="_syslay.bg" class=grp]
+	[add_lay layer="_syslay.0" class=grp]
+	[add_lay layer="_syslay.1" class=grp]
+	[add_lay layer="_syslay.2" class=grp]
+	[add_lay layer="_syslay.mes" class=txt]
+	[let name="const._syslay.inited" text=true]
+*_syslay.inited
+[endmacro]
+
+;*********************************************************
+; マクロ テキストレイヤ縦書き左設定
+[macro name="txt_lay_v_left"]
+	[let name="l" text=%l|40]
+	[let name="w" text=%w|292]
+	[let name="pl" text="&l +26"]
+	[let name="pt" text="66"]
+	[let name="pr" text="&const.flash.display.Stage.stageWidth -(l +w) +26"]
+	[let name="pb" text="66"]
+	[let name="fcol" text=%fcol|0x000000]
+	[lay * layer=%layer|"mes" page=%page|back visible=%visible|true b_left=&l b_top=0 b_width=&w b_height=&const.flash.display.Stage.stageHeight b_color=%b_color|0xffffff b_alpha=%b_alpha|&sys:TextLayer.Back.Alpha r_color=&fcol r_size=12 max_col=25 bura_col=2 max_row=%max_row|7 onsplit="enter" layout=#&'lineHeight="36" justificationRule="space" columnGap="0" paddingLeft="$pl" paddingTop="$pt" paddingRight="$pr" paddingBottom="$pb" verticalAlign="inherit" blockProgression="rl" lineBreak="explicit" fontLookup="embeddedCFF" renderingMode="cff" fontSize="24" locale="ja" kerning="off" trackingRight="0" color="$fcol" whiteSpaceCollapse="preserve"'#]
+[endmacro]
+
+;*********************************************************
+; マクロ テキストレイヤ縦書き中設定
+[macro name="txt_lay_v_center"]
+	[txt_lay_v_left * l=%l|366]
+[endmacro]
+
+;*********************************************************
+; マクロ テキストレイヤふきだし設定
+[macro name="txt_lay_ふきだし"]
+	[let name="l" text=%l|722]
+	[let name="w" text=%w|184]
+	[let name="pl" text="&l +26"]
+	[let name="pt" text=%pt|90]
+	[let name="pr" text="&const.flash.display.Stage.stageWidth -(l +w) +26"]
+	[let name="pb" text="66"]
+	[let name="fcol" text=%fcol|0x000000]
+	[lay * layer=%layer|"mes" page=%page|back visible=%visible|true b_alpha=0 r_color=&fcol r_size=12 max_col=13 bura_col=2 max_row=%max_row|4 onsplit="enter" layout=#&'lineHeight="36" justificationRule="space" columnGap="0" paddingLeft="$pl" paddingTop="$pt" paddingRight="$pr" paddingBottom="$pb" verticalAlign="inherit" blockProgression="rl" lineBreak="explicit" fontLookup="embeddedCFF" renderingMode="cff" fontSize="24" locale="ja" kerning="off" trackingRight="0" color="$fcol" whiteSpaceCollapse="preserve"'#]
+[endmacro]
+
+;*********************************************************
+; マクロ テキストレイヤ縦書きWide中設定
+[macro name="txt_lay_v_center_wide"]
+	[txt_lay_v_center * l=%l|294 w=436 max_row=11]
+[endmacro]
+
+;*********************************************************
+; マクロ テキストレイヤ全画面設定
+[macro name="txt_lay_fullscreen"]
+	[let name="t" text=%t|40]
+	[let name="h" text=%h|"&const.flash.display.Stage.stageHeight -40*2"]
+	[let name="pl" text="70"]
+	[let name="pt" text="&t +30"]
+	[let name="pr" text="70"]
+	[let name="pb" text="70"]
+	[let name="fcol" text=%fcol|0xFFFFFF]
+	[lay * layer=%layer|"mes" page=%page|back visible=%visible|true b_left=40 b_top=&t b_width="&const.flash.display.Stage.stageWidth -40*2" b_height=&h b_color=%b_color|0x000000 b_alpha=%b_alpha|&sys:TextLayer.Back.Alpha r_color=&fcol r_size=12 max_col=35 bura_col=2 max_row=%max_row|18 onsplit="enter" layout=#&'lineHeight="36" justificationRule="space" columnGap="0" paddingLeft="$pl" paddingTop="$pt" paddingRight="$pr" paddingBottom="$pb" verticalAlign="inherit" blockProgression="tb" lineBreak="explicit" fontLookup="embeddedCFF" renderingMode="cff" fontSize="24" locale="ja" kerning="off" trackingRight="0" color="$fcol" whiteSpaceCollapse="preserve"'#]
+[endmacro]
+
+;*********************************************************
+; マクロ テキストレイヤ横書きWide下設定
+[macro name="txt_lay_h_bottom_wide"]
+	[txt_lay_fullscreen * t=%t|472 h=266 max_row=6]
+[endmacro]
+
+;*********************************************************
+; マクロ ＢＧＭ切り替え
+[macro name="bgm"]
+	[stopbgm cond="mp:time == null"]
+	
+	[fadeoutbgm time=%time|500 cond="mp:time != null"]
+	[wb cond="mp:time != null"]
+
+	[playbgm * join=false]
+[endmacro]
+
+;*********************************************************
+; マクロ 音声
+[macro name="voice"]
+	[let name="lastVoice" text=%fn cond="mp:fn != null"]
+	[stopse buf=%buf|音声]
+	[se * buf=%buf|音声 fn=%fn]
+[endmacro]
+
+;*********************************************************
+; マクロ 音声履歴開始
+[macro name="h_voice"]
+	[rec_ch text=#&'｜　《link｜{"fn":"sub","label":"*h_voice","call":"true","global":"true","arg":"$lastVoice"}》'# r=false]
+[endmacro]
+
+;*********************************************************
+; マクロ 音声履歴終了
+[macro name="end_h_voice"]
+	[rec_ch text="｜　《endlink｜》" r=false]
+[endmacro]
+
+;*********************************************************
+; マクロ 効果音
+[macro name="se"]
+	[stopse * cond="mp:fn == null"]
+	[playse * cond="mp:fn != null" join=false]
+[endmacro]
+
+;*********************************************************
+; マクロ 改ページ
+[macro name="plc"]
+;	[h_ss_upd]	; 履歴画面用スナップショットを撮る
+	[ws buf="音声" canskip=true cond="an.auto.enabled"]
+		[wait_漫符][wait_ふきだし]
+	[p visible=%visible|true]
+	[er]
+	[record_place layer="base,0,1,2,mes,ふきだし,漫符,前効果"]
+		[sys_resume_save]
+	[let name="lastVoice" text=""]
+;	[h_save]	; 履歴画面で選択位置から再開する
+	[fadeoutse buf="SE" time=500 cond="mp:no_se_stop === null"]
+	[stopse buf=%buf|音声 cond="mp:no_voice_stop === null"]
+[endmacro]
+
+;*********************************************************
+; マクロ 選択肢直後にすべき処理
+[macro name="after_choice"]
+	[record_place layer="base,0,1,2,mes"]
+		[sys_resume_save]
+[endmacro]
+
+;*********************************************************
+; マクロ 履歴画面で選択位置から再開する
+[let name="const.h_save.max_count" text=50]
+[macro name="h_save"]
+	[let name="h_save_idx" text="0" cond="h_save_idx == null"]
+	
+	[let name="place" text="&'h_'+ h_save_idx"]
+	[call fn=_saveload label=*do_save_noss]
+	
+	[rec_ch text=#&'｜　《grp｜｜{"pic":"app-storage:/bookmark/'+ place +'.jpg","width":"198","height":"149"}》'# r=false]
+	[rec_ch text=#&'｜　《link｜{"fn":"sub","label":"*h_jmp","call":"true","global":"true","arg":"$place"}》'# r=false]
+	[rec_ch text="【このページから再開】"]
+	[rec_r][rec_r]
+	
+	[rec_ch text="｜　《endlink｜》" r=false]
+	[let name="h_ss_idx" text="&h_save_idx %const.h_save.max_count"]
+	[let name="h_save_idx" text="&(h_save_idx +1) %const.h_save.max_count"]
+[endmacro]
+
+;*********************************************************
+; マクロ 履歴画面用スナップショットを撮る
+[macro name="h_ss_upd"]
+	[snapshot fn="& 'app-storage:/bookmark/h_'+ h_ss_idx" layer="base,0,1,2,mes" width=198 height=149 quality=90 smoothing=true cond="(h_save_idx != null) && (h_ss_idx != h_save_idx)"]
+	[let name="h_ss_idx" text="&h_save_idx" cond="h_save_idx != null"]
+[endmacro]
+
+;*********************************************************
+; マクロ 前景レイヤ切り替え
+[macro name="fg"]
+	[img * layer=%layer|0]
+	[trans * layer=%layer|0 time=%time|500]
+	[wt]
+[endmacro]
+
+;*********************************************************
+; マクロ 場面転換
+;*********************************************************
+[macro name="grp"]
+	; テキストOff
+	[lay layer=mes page=back visible=false cond="mp:nofo_txt == null"]
+	[trans layer=mes time=%txt_time|300 cond="mp:nofo_txt == null"]
+	[wt cond="mp:nofo_txt == null"]
+	[er cond="mp:nofo_txt == null" rec_page_break=false]
+	[fire_clear]
+
+	; 効果音
+	[se fn=%se cond="mp:se != null"]
+
+	; レイヤ切り替え・メイン
+	[lay layer=base page=back fn=%bg scale_x=%sxb|null face=%fb|null visible=true cond="mp:bg != null"]
+	[img layer=0 fn=%l0|null pos=%pos0|null left=%left0|null top=%top0|null alpha=%o0|null scale_x=%sx0|null face=%f0|null]
+	[img layer=1 fn=%l1|null pos=%pos1|null left=%left1|null top=%top1|null alpha=%o1|null scale_x=%sx1|null face=%f1|null]
+	[img layer=2 fn=%l2|null pos=%pos2|null left=%left2|null top=%top2|null alpha=%o2|null scale_x=%sx2|null face=%f2|null]
+	[img layer=ふきだし]
+	[img layer=漫符]
+	[img layer=前効果]
+	[trans * layer="base,0,1,2,ふきだし,漫符,前効果" time=%time|1000]
+	[wt]
+
+	; テキストOn
+	[lay layer=mes page=back visible=true cond="mp:nofi_txt == null"]
+	[trans layer=mes time=%txt_time|300 cond="mp:nofi_txt == null"]
+	[wt cond="mp:nofi_txt == null"]
+[endmacro]
+
+;-----------------------------------------------------------
+; マクロ 画像レイヤ設定サブ
+[macro name="img"]
+	[lay * page=back visible=true rotation=%rotation|0 scale_x=%scale_x|1 cond="mp:fn != null"]
+	[clear_lay layer=%layer page=back cond="mp:fn == null"]
+	[lay * page=back visible=false cond="mp:fn == null"]
+[endmacro]
+
+;*********************************************************
+; マクロ クリック待ち・改行
+[macro name="lr"]
+	[ws buf="音声" canskip=true cond="an.auto.enabled"]
+	[l][r]
+	[let name="lastVoice" text=""]
+[endmacro]
+
+;*********************************************************
+; マクロ 文字数分のウェイトを入れる
+[macro name="wc"]
+	[wait cond="mp:time != null && sys:an.tagCh.doWait" time="&mp:time * sys:an.tagCh.msecWait"]
+[endmacro]
+
+;*********************************************************
+;（略）
+
+;*********************************************************
+; マクロ ふきだし
+[macro name="ふきだし"]
+	[txt_lay_ふきだし]
+	[trans * layer="mes" time=%time|300]
+
+	[lay layer=ふきだし fn=ふきだし left=&650-50 top=&62+384*0.3 scale_y=0.7 visible=true]
+	[tsy layer=ふきだし time=700 x="=50" y=62 scaleY=1 ease=Elastic.easeOut]
+
+	[wt]
+[endmacro]
+
+[macro name="ふきだしトゲ"]
+	[txt_lay_ふきだし]
+	[trans * layer="mes" time=%time|300]
+
+	[lay layer=ふきだし fn=ふきだしトゲ left=&697-50 top=&17+384*0.3 scale_y=0.7 visible=true]
+	[tsy layer=ふきだし time=700 x="=50" y=17 scaleY=1 ease=Elastic.easeOut]
+
+	[wt]
+[endmacro]
+
+[macro name="ふきだしトゲ右"]
+	[txt_lay_ふきだし * l=580]
+	[trans * layer="mes" time=%time|300]
+
+	[lay layer=ふきだし fn=ふきだしトゲ left=&560+282 top=&17+384*0.3 scale_y=0.7 visible=true]
+	[tsy layer=ふきだし time=700 x="=-282" y=17 scaleY=1 ease=Elastic.easeOut]
+
+	[wt]
+[endmacro]
+
+[macro name="ふきだし下"]
+	[txt_lay_ふきだし * l=672 pt=%pt|345]
+	[trans * layer="mes" time=%time|300]
+
+	[lay layer=ふきだし fn=ふきだし下 left=&616-50 top=308 scale_y=0.7 visible=true]
+	[tsy layer=ふきだし time=700 x="=50" scaleY=1 ease=Elastic.easeOut]
+
+	[wt]
+[endmacro]
+
+[macro name="ふきだし下右"]
+	[txt_lay_ふきだし * l=480 pt=%pt|345]
+	[trans * layer="mes" time=%time|300]
+
+	[lay layer=ふきだし fn=ふきだし下 left=&460+282 top=308 scale_x=-1 scale_y=0.7 visible=true]
+	[tsy layer=ふきだし time=700 x="=-282" scaleY=1 ease=Elastic.easeOut]
+
+	[wt]
+[endmacro]
+
+[macro name="wait_ふきだし"]
+	[wait_tsy layer=ふきだし arrive=true backlay=true canskip=false]
+[endmacro]
+
+[macro name="clear_ふきだし"]
+	[stop_tsy layer=ふきだし arrive=true backlay=true]
+	[txt_lay_v_left *]
+
+	[img layer=ふきだし]
+	[trans * layer="ふきだし,mes" time=%time|300]
+	[wt]
+[endmacro]
+
+;*********************************************************
+; マクロ 漫符
+[macro name="漫符_ゴゴゴゴゴ"]
+	[se fn=goro03]
+	[lay layer=漫符 fn=漫符_ゴゴゴゴゴ left=263 top=113 visible=true]
+	[tsy layer=漫符 time=1000 y="=-50" ease=Back.easeOut]
+[endmacro]
+
+[macro name="漫符_キラキラ"]
+;	[se fn=goro03]
+	[lay layer=漫符 fn=漫符_キラキラ left=146 top=&22-20 alpha=0.7 visible=true]
+	[tsy layer=漫符 time=1000 y="=20" alpha=1 ease=Back.easeOut]
+[endmacro]
+
+[macro name="漫符_びしっ"]
+	[lay layer=漫符 fn=漫符_びしっ left=525 top=335 scale_x=3 scale_y=3 visible=true]
+	[tsy layer=漫符 time=500 scaleX=1 scaleY=1 ease=Back.easeOut]
+	[se fn=WhipD@22]
+[endmacro]
+
+[macro name="wait_漫符"]
+	[wait_tsy layer=漫符 arrive=true backlay=true canskip=false]
+[endmacro]
+
+;*********************************************************
+; マクロ 前効果
+[macro name="前効果_集中・薄"]
+	[lay layer=前効果 fn=前効果_集中・薄 left=&-1024/2 top=&-768/2 scale_x=2 scale_y=2 visible=true]
+	[tsy layer=前効果 time=500 x=0 y=0 scaleX=1 scaleY=1 ease=Circular.easeIn]
+[endmacro]
+
+[macro name="前効果_集中・濃"]
+	[lay layer=前効果 fn=前効果_集中・濃 left=&-1024/2 top=&-768/2 scale_x=2 scale_y=2 visible=true]
+	[tsy layer=前効果 time=500 x=0 y=0 scaleX=1 scaleY=1 ease=Circular.easeIn]
+[endmacro]
+
+;*********************************************************
+; マクロ 天候
+[macro name="天候・雪"]
+	[let name="save:天候" text=true]
+
+	[add_tsyfx name="雪" class="snow" left=&230-(1605-1024)¥2 top=250 width=855 height=264]
+[endmacro]
+
+[macro name="clear_天候"]
+	[let name="save:天候" text=false]
+
+	[del_tsyfx name="雪"]
+[endmacro]
+
+;*********************************************************
+; マクロ ループコール
+[macro name="for_call"]
+	[let name="&'for_call_idx.'+ mp:name" text=%from]
+	[let name="tmp:for_call_break" text=false]
+
+*for_call_continue
+	[jump label=*for_call_break cond="for_call_idx[mp:name] > mp:to"]
+		[call fn=%fn|null label=%label|null]
+	[jump label=*for_call_break cond="tmp:for_call_break"]
+	[let name="&'for_call_idx.'+ mp:name" text="&for_call_idx[mp:name] +1"]
+
+	[jump label=*for_call_continue]
+
+*for_call_break
+	[let name="tmp:for_call_break" text=false]	; 内側一つだけ脱出
+[endmacro]
+
+;*********************************************************
+; マクロ ループコール脱出
+[macro name="for_call_break"]
+	[jump label=*for_call_break_go]
+[endmacro]
+
+
+
+[return]
+
+*for_call_break_go
+	[let name="tmp:for_call_break" text=true]
+	[return]
+
+*toggle_auto_read
+	[let name="tmp:an.auto.enabled" text=true]
+	[set_cancel_skip]
+	[notice text="自動読み進みOn" left="&const.flash.display.Stage.stageWidth -10 -300" top=10]
+	[return]
+
+*toggle_skip
+	[let name="tmp:an.skip.enabled" text=true]
+	[set_cancel_skip]
+	[notice text="強制スキップ On" left="&const.flash.display.Stage.stageWidth -10 -300" top=10]
+	[return]
+
+*h_voice
+	[voice fn=&const.an.eventArg]
+	[return]
+
+*h_jmp
+	[let name="place" text=&const.an.eventArg]
+
+	[history_let_page name=h_page]
+	[history_let_page_count name=h_page_count]
+	[notice text="容量制限により、これ以前で再開できません" left="&const.flash.display.Stage.stageWidth -10 -300" top=10 cond="h_page_count -h_page > const.h_save.max_count"]
+	[return cond="h_page_count -h_page > const.h_save.max_count"]
+
+		[ask_ync_cleartext]
+		[button enabled=false layer="mes_yesno" page=fore pic="& 'app-storage:/bookmark/'+ place +'.jpg'" left=570 top=220]
+		[ask_ync mes="ここから再開しますか？" no_cleartext=true]
+			;#FONT	ここから再開しますか？
+	[return cond="_yesno != 'y'"]
+
+	[call fn=_history label=*cancel]
+	[jump fn=_saveload label=*end_load]

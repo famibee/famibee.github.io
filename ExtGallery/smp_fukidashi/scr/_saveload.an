@@ -1,0 +1,46 @@
+; ***　いい感じに差し替えて下さい
+
+*do_save
+	[snapshot fn="& 'app-storage:/bookmark/'+ place" layer="base2,base,0,1,2,前効果,ふきだし,漫符,mes" plugin="plgTweensyFX,plgFire" width=220 height=165 quality=90 smoothing=true]
+	[snapshot fn="& 'app-storage:/bookmark/'+ place +'b'" layer="base2,base,0,1,2,前効果,ふきだし,漫符,mes" plugin="plgTweensyFX,plgFire" width=480 height=360 quality=90 smoothing=true]
+*do_save_noss
+	[let name="enabled" text="&save:const.an.layer.mes.enabled|true"]
+	[enable_event enabled=true]	; この状態も保存されるので一時変更
+	[save place=&place path="app-storage:/bookmark/"]
+	[enable_event enabled="&enabled"]
+[return]
+
+*do_save_resume
+	; 変数placeを変更しないよう注意。呼び元で使用している。
+	[let name="enabled" text="&save:const.an.layer.mes.enabled|true"]
+	[enable_event enabled=true]	; この状態も保存されるので一時変更
+	[save place=99999]
+	[enable_event enabled="&enabled"]
+[return]
+
+
+;*********************************************************
+
+*end_load
+	; *** ブラックアウト ***
+	[clear_lay layer="_syslay.mes" page=back]
+	[clear_lay layer="_syslay.0" page=back]
+	[lay layer="_syslay.0" page=back visible=false]
+	[lay layer="_syslay.bg" page=back visible=false]
+	[trans layer="_syslay.mes,_syslay.0,_syslay.bg" time=200]
+
+*do_load
+	[sys_scenario_start no_resume_save=true]
+	[copybookmark from=&place to=99999]
+	[load place=&place fn=_saveload label=*do_load_init]
+
+*do_load_resume
+	[se fn=&sysse_ok2_long buf=SYS]
+	[notice text="前回終了ポイントから再開します" left="&const.flash.display.Stage.stageWidth -10 -300" top=10]
+	[sys_scenario_start no_resume_save=true]
+	[load place=99999 fn=_saveload label=*do_load_init]
+
+; ロード後最初にしたい共通処理
+*do_load_init
+	[天候・雪 fn=&save:天候fn cond=save:天候]
+[return]

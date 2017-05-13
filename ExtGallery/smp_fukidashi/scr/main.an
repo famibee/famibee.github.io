@@ -1,0 +1,55 @@
+	[title text="柊鰯　特殊効果　フリー素材"]
+	[call fn=sub]
+
+	; *** テキストレイヤ縦書き左設定 ***
+	[txt_lay_v_left page=fore]
+
+	[lay layer=base fn="背景" visible=true]
+
+*loop
+	[lay layer=0 fn="人" visible=true]
+	[ふきだし]
+　吹き出しサンプル。[r]
+　png画像などを色んなアニメ表示してみます。[plc visible=false]
+
+　絵・効果音素材はふぁみべぇ著作物ではないので再利用不可ですが、[plc visible=false]
+
+　吹き出し素材などはフリーを拾ったモノなので再利用大丈夫なはず。[plc visible=false]
+;	[clear_ふきだし]
+; *** すぐ次が吹き出しなので省略出来る。省略したほうがテンポいい
+
+（次、音が出ます）[plc visible=false]
+
+	[ふきだしトゲ]
+	[漫符_びしっ]
+　サンプルって、柊鰯の切り売りじゃん！[plc visible=false]
+	[fg layer=漫符]
+
+	[ふきだし下]
+　ンモー[l][r]
+　そういうこという〜[plc visible=false]
+;	[clear_ふきだし]
+; *** すぐ次が吹き出しなので省略出来る。省略したほうがテンポいい
+
+	[前効果_集中・薄]
+	[漫符_ゴゴゴゴゴ]
+　ひとは〜[plc visible=false]
+	[fg layer=前効果 time=0]
+
+	[ふきだしトゲ右]
+	[漫符_キラキラ]
+やろう、ぶっころしてやる[plc visible=false]
+;	[clear_ふきだし]
+; *** すぐ次が吹き出しなので省略出来る。省略したほうがテンポいい
+	[fg layer=漫符 time=0]
+
+	[ふきだし]
+　わし、感情的になるで。[plc visible=false]
+
+	[天候・雪]
+　エターナルフォースブリザード[r]
+　一瞬で相手の周囲の大気ごと氷結させる[plc visible=false]
+	[clear_天候]
+
+
+[jump label=*loop]
