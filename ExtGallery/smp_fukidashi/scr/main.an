@@ -10,7 +10,7 @@
 	; （このままリリースしても問題なし）
 [lay layer="mes" page=fore layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
 [lay layer="mes" page=back layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
-[trace text=0]
+[trace text=1]
 
 	[lay layer=base fn="背景" visible=true]
 
