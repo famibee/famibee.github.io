@@ -350,7 +350,7 @@
 	[txt_lay_ふきだし]
 	[trans * layer="mes" time=%time|300]
 
-	[lay layer=ふきだし fn=ふきだし left=&650-50 top=&62+384*0.3 scale_y=0.7 visible=true]
+	[lay layer=ふきだし fn=Fukidashi left=&650-50 top=&62+384*0.3 scale_y=0.7 visible=true]
 	[tsy layer=ふきだし time=700 x="=50" y=62 scaleY=1 ease=Elastic.easeOut]
 
 	[wt]
@@ -360,7 +360,7 @@
 	[txt_lay_ふきだし]
 	[trans * layer="mes" time=%time|300]
 
-	[lay layer=ふきだし fn=ふきだしトゲ left=&697-50 top=&17+384*0.3 scale_y=0.7 visible=true]
+	[lay layer=ふきだし fn=FukidashiToge left=&697-50 top=&17+384*0.3 scale_y=0.7 visible=true]
 	[tsy layer=ふきだし time=700 x="=50" y=17 scaleY=1 ease=Elastic.easeOut]
 
 	[wt]
@@ -370,7 +370,7 @@
 	[txt_lay_ふきだし * l=580]
 	[trans * layer="mes" time=%time|300]
 
-	[lay layer=ふきだし fn=ふきだしトゲ left=&560+282 top=&17+384*0.3 scale_y=0.7 visible=true]
+	[lay layer=ふきだし fn=FukidashiToge left=&560+282 top=&17+384*0.3 scale_y=0.7 visible=true]
 	[tsy layer=ふきだし time=700 x="=-282" y=17 scaleY=1 ease=Elastic.easeOut]
 
 	[wt]
@@ -380,7 +380,7 @@
 	[txt_lay_ふきだし * l=672 pt=%pt|345]
 	[trans * layer="mes" time=%time|300]
 
-	[lay layer=ふきだし fn=ふきだし下 left=&616-50 top=308 scale_y=0.7 visible=true]
+	[lay layer=ふきだし fn=FukidashiShita left=&616-50 top=308 scale_y=0.7 visible=true]
 	[tsy layer=ふきだし time=700 x="=50" scaleY=1 ease=Elastic.easeOut]
 
 	[wt]
@@ -390,7 +390,7 @@
 	[txt_lay_ふきだし * l=480 pt=%pt|345]
 	[trans * layer="mes" time=%time|300]
 
-	[lay layer=ふきだし fn=ふきだし下 left=&460+282 top=308 scale_x=-1 scale_y=0.7 visible=true]
+	[lay layer=ふきだし fn=FukidashiShita left=&460+282 top=308 scale_x=-1 scale_y=0.7 visible=true]
 	[tsy layer=ふきだし time=700 x="=-282" scaleY=1 ease=Elastic.easeOut]
 
 	[wt]
