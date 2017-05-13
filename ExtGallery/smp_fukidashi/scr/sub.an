@@ -19,7 +19,6 @@
 	[add_lay layer=mes class=txt]
 
 	[loadplugin fn="plgTweensy"]
-	[loadplugin fn="ipam"]		; Web用
 
 
 ; ***以下はsub.anにマージ
@@ -82,7 +81,7 @@
 
 [jump label=*game_inited cond="const.game.inited"]
 [let name="const.game.inited" text=true]
-	[loadplugin fn="ipam_cff"]
+;	[loadplugin fn="ipam"]
 
 	[loadplugin fn="plgQuake"]
 
@@ -415,7 +414,7 @@
 ; マクロ 漫符
 [macro name="漫符_ゴゴゴゴゴ"]
 	[se fn=goro03]
-	[lay layer=漫符 fn=漫符_ゴゴゴゴゴ left=263 top=113 visible=true]
+	[lay layer=漫符 fn=Manpu_Gogogogo left=263 top=113 visible=true]
 	[tsy layer=漫符 time=1000 y="=-50" ease=Back.easeOut]
 [endmacro]
 
