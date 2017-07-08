@@ -1,6 +1,9 @@
 ;*********************************************************
 ;@EXT_DESC	ボイスをより簡単に扱う
-;@VER		2017.7.7.002
+;@VER		2017.7.8.003	[se]を sub.an に移動
+;@VER		2017.7.7.002	〔名前〕のみで完結するように。
+;				カウンタ初期化追記を促すように
+;@VER		2015.6.21.001	新規：〔名前〕と『台詞』形式
 ;*********************************************************
 
 ;*********************************************************
@@ -26,7 +29,7 @@
 ;*********************************************************
 ; マクロ 音声を再生
 &lastVoice = ''	; 初期値・クリア
-[macro name="voice" exist_err=false]
+[macro name="voice"]
 	[let name="lastVoice" text=%fn cond="mp:fn != null"]
 	[stopse buf=%buf|音声]
 	[se * buf=%buf|音声 fn=%fn]
@@ -34,21 +37,14 @@
 
 ;*********************************************************
 ; マクロ 音声待ち
-[macro name="vw" exist_err=false]
+[macro name="vw"]
 	[ws buf=%buf|音声]
-[endmacro]
-
-;*********************************************************
-; マクロ 効果音
-[macro name="se" exist_err=false]
-	[stopse * cond="mp:fn == null"]
-	[playse * cond="mp:fn != null" join=false]
 [endmacro]
 
 
 ;*********************************************************
 ; マクロ 連番ファイル名の音声再生
-[macro name="voice2" exist_err=false]
+[macro name="voice2"]
 	; この辺に顔アイコン変更とか名前表示とか追加したり
 	&fn = const.db_v_who[mp:text]
 	[break_macro cond=fn==null]	; 音声無しは無処理
@@ -91,7 +87,7 @@
 
 ;*********************************************************
 ; マクロ あの素晴らしい声をもう一度
-[macro name="repeat_voice" exist_err=false]
+[macro name="repeat_voice"]
 	[voice fn=&lastVoice cond="lastVoice != ''"]
 [endmacro]
 
