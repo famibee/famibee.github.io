@@ -26,10 +26,10 @@
 	[let name=t text=%time|250]
 	[break_macro cond=t==0]		; 処理なし
 
-	&seq='seq_'+ layer
 	[let name=lay text=%layer|0]
 	[let name=y text=%y|50]
 	[let name=ease text=%ease|Circular.easeOut]
+	&seq='seq_'+ lay
 
 	[new_tsy_seq seq=&seq]
 	[push_tsy_seq seq=&seq layer=&lay time=&t y='&"="+ y' ease=&ease]
@@ -44,9 +44,9 @@
 	[let name=t text=%time|20]
 	[break_macro cond=t==0]		; 処理なし
 
-	&seq='seq_'+ layer
 	[let name=lay text=%layer|0]
 	[let name=x text=%x|5]
+	&seq='seq_'+ lay
 
 	[new_tsy_seq seq=&seq]
 	
@@ -70,6 +70,7 @@
 	[let name=lay text=%layer|0]
 	[let name=x text=%x|25]
 	[let name=y text=%y|25]
+	&seq='seq_'+ lay
 
 	[new_tsy_seq seq=&seq]
 	

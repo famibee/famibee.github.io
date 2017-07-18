@@ -26,16 +26,16 @@
 	[let name=t text=%time|250]
 	[break_macro cond=t==0]		; 処理なし
 
-	&seq='seq_'+ layer
 	[let name=lay text=%layer|0]
 	[let name=y text=%y|50]
 	[let name=ease text=%ease|Circular.easeOut]
-	
+	&seq='seq_'+ lay
+
 	[new_tsy_seq seq=&seq]
 	[push_tsy_seq seq=&seq layer=&lay time=&t y='&"="+ y' ease=&ease]
 	[push_tsy_seq seq=&seq layer=&lay time=&t y='=0' ease=&ease]
-	[start_tsy_seq seq=&seq]
-	[wait_tsy_seq seq=&seq]
+	[start_tsy_seq seq=&seq repeats=%repeats|1]
+	[wait_tsy_seq seq=&seq cond='! mp:no_wait']
 [endmacro]
 
 ;*********************************************************
@@ -44,10 +44,10 @@
 	[let name=t text=%time|20]
 	[break_macro cond=t==0]		; 処理なし
 
-	&seq='seq_'+ layer
 	[let name=lay text=%layer|0]
 	[let name=x text=%x|5]
-	
+	&seq='seq_'+ lay
+
 	[new_tsy_seq seq=&seq]
 	
 	[push_tsy_seq seq=&seq layer=&lay time=&t x='&"=-"+ x +","+ x']
@@ -57,8 +57,8 @@
 	[push_tsy_seq seq=&seq layer=&lay time=&t x='&"=-"+ x +","+ x']
 	
 	[push_tsy_seq seq=&seq layer=&lay time=&t x='=0']
-	[start_tsy_seq seq=&seq repeats=5]
-	[wait_tsy_seq seq=&seq]
+	[start_tsy_seq seq=&seq repeats=%repeats|5]
+	[wait_tsy_seq seq=&seq cond='! mp:no_wait']
 [endmacro]
 
 ;*********************************************************
@@ -70,14 +70,17 @@
 	[let name=lay text=%layer|0]
 	[let name=x text=%x|25]
 	[let name=y text=%y|25]
-	[tsy layer=&lay time=&t x='&"=-"+ x' y='&"="+ y' ease=Quintic.easeOut]
-	[wait_tsy layer=&lay arrive=true backlay=true]
-	[tsy layer=&lay time=&t x='&"="+ x' y='&"=-"+ y']
-	[wait_tsy layer=&lay arrive=true backlay=true]
-	[tsy layer=&lay time=&t x='&"="+ x' y='&"="+ y']
-	[wait_tsy layer=&lay arrive=true backlay=true]
-	[tsy layer=&lay time=&t x='&"=-"+ x' y='&"=-"+ y' ease=Quintic.easeIn]
-	[wait_tsy layer=&lay arrive=true backlay=true]
+	&seq='seq_'+ lay
+
+	[new_tsy_seq seq=&seq]
+	
+	[push_tsy_seq seq=&seq layer=&lay time=&t x='&"=-"+ x' y='&"="+ y' ease=Quintic.easeOut]
+	[push_tsy_seq seq=&seq layer=&lay time=&t x='=0' y='=0']
+	[push_tsy_seq seq=&seq layer=&lay time=&t x='&"="+ x' y='&"="+ y']
+	[push_tsy_seq seq=&seq layer=&lay time=&t x='=0' y='=0' ease=Quintic.easeIn]
+	
+	[start_tsy_seq seq=&seq repeats=%repeats|1]
+	[wait_tsy_seq seq=&seq cond='! mp:no_wait']
 [endmacro]
 
 ;*********************************************************
