@@ -47,14 +47,15 @@
 [fog layer=bg dy=25 width=840 left=-100 height=530]
 雪？[p][er]
 
-[tsy_seq_new seq=snow]
-[tsy_seq_push x="0" time=4000 plugin=plgFog seq=snow]
-[tsy_seq_push y="-50" time=300 plugin=plgFog seq=snow]
-[tsy_seq_push x="-200" y=0 time=4000 plugin=plgFog seq=snow]
-[tsy_seq_replay type=replay seq=snow repeats=100]
+[new_tsy_seq seq=snow]
+[push_tsy_seq x="0" time=4000 plugin=plgFog seq=snow]
+[push_tsy_seq y="-50" time=300 plugin=plgFog seq=snow]
+[push_tsy_seq x="-200" y=0 time=4000 plugin=plgFog seq=snow]
+[start_tsy_seq seq=snow repeats=0]	; 0は無限ループ
+;[replay_tsy_seq type=replay seq=snow repeats=100]
 
 plgTweensyと組み合わせてみました。
 [p][er]
-[tsy_seq_stop seq=snow]
+[stop_tsy_seq seq=snow]
 おしまい。[p]
 [close]

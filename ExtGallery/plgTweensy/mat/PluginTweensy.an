@@ -3,6 +3,7 @@
 
 	; Wキーでフルスクリーン（ESCキーで戻る）
 	[event global=true call=true key=w label=*toggle_full_screen]
+	[event global=true call=true key=p label=*resume]
 
 	[plugin name="analogclock02" visible=true left=&(800-100)/2 top=&(600-100)/2]
 
@@ -15,3 +16,10 @@
 
 *toggle_full_screen
 	[toggle_full_screen][return]
+
+*resume
+	[get_paused_tsy name=v plugin=analogclock02]
+		[trace text="&'  paused:'+ v"]
+	[pause_tsy plugin=analogclock02 cond=!v]
+	[resume_tsy plugin=analogclock02 cond=v]
+[return]

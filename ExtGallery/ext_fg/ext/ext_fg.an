@@ -1,22 +1,83 @@
 ;*********************************************************
 ;@EXT_DESC	クロスフェードしながらレイヤ画像を変更する
+;@VER		2017.7.19.000	exist_err=falseは削除、[fg_squat][fg_shake][fg_sidestep]追加
 ;@VER		2015.6.15.000
 ;*********************************************************
 
 ;*********************************************************
-[macro name="fg" exist_err=false]
+[macro name="fg"]
 	[img * layer=%layer|0]
-	[let name=t text=%time|500]	;省略した時の初期値
-	[let name=t text=0 cond="an.skip.enabled"]
+	[let name=t text=%time|500]
+	[let name=t text=0 cond=an.skip.enabled]	; skip時は瞬時処理
 	[trans * layer=%layer|0 time=&t]
 	[wt]
 [endmacro]
 
 ;*********************************************************
-[macro name="img" exist_err=false]
-	[lay * page=back visible=true rotation=%rotation|0 scale_x=%scale_x|1 cond="mp:fn != null"]
-	[clear_lay layer=%layer page=back cond="mp:fn == null"]
-	[lay * page=back visible=false cond="mp:fn == null"]
+[macro name="img"]
+	[lay * page=back visible=true rotation=%rotation|0 scale_x=%scale_x|1 cond='mp:fn != null']
+	[clear_lay layer=%layer page=back cond='mp:fn == null']
+	[lay * page=back visible=false cond='mp:fn == null']
+[endmacro]
+
+;*********************************************************
+[macro name="fg_squat"]
+	[break_macro cond=an.skip.enabled]	; skip時は処理なし
+	[let name=t text=%time|250]
+	[break_macro cond=t==0]		; 処理なし
+
+	&seq='seq_'+ layer
+	[let name=lay text=%layer|0]
+	[let name=y text=%y|50]
+	[let name=ease text=%ease|Circular.easeOut]
+	
+	[new_tsy_seq seq=&seq]
+	[push_tsy_seq seq=&seq layer=&lay time=&t y='&"="+ y' ease=&ease]
+	[push_tsy_seq seq=&seq layer=&lay time=&t y='=0' ease=&ease]
+	[start_tsy_seq seq=&seq]
+	[wait_tsy_seq seq=&seq]
+[endmacro]
+
+;*********************************************************
+[macro name="fg_shake"]
+	[break_macro cond=an.skip.enabled]	; skip時は処理なし
+	[let name=t text=%time|20]
+	[break_macro cond=t==0]		; 処理なし
+
+	&seq='seq_'+ layer
+	[let name=lay text=%layer|0]
+	[let name=x text=%x|5]
+	
+	[new_tsy_seq seq=&seq]
+	
+	[push_tsy_seq seq=&seq layer=&lay time=&t x='&"=-"+ x +","+ x']
+	[push_tsy_seq seq=&seq layer=&lay time=&t x='&"=-"+ x +","+ x']
+	[push_tsy_seq seq=&seq layer=&lay time=&t x='&"=-"+ x +","+ x']
+	[push_tsy_seq seq=&seq layer=&lay time=&t x='&"=-"+ x +","+ x']
+	[push_tsy_seq seq=&seq layer=&lay time=&t x='&"=-"+ x +","+ x']
+	
+	[push_tsy_seq seq=&seq layer=&lay time=&t x='=0']
+	[start_tsy_seq seq=&seq repeats=5]
+	[wait_tsy_seq seq=&seq]
+[endmacro]
+
+;*********************************************************
+[macro name="fg_sidestep"]
+	[break_macro cond=an.skip.enabled]	; skip時は処理なし
+	[let name=t text=%time|250]
+	[break_macro cond=t==0]		; 処理なし
+
+	[let name=lay text=%layer|0]
+	[let name=x text=%x|25]
+	[let name=y text=%y|25]
+	[tsy layer=&lay time=&t x='&"=-"+ x' y='&"="+ y' ease=Quintic.easeOut]
+	[wait_tsy layer=&lay arrive=true backlay=true]
+	[tsy layer=&lay time=&t x='&"="+ x' y='&"=-"+ y']
+	[wait_tsy layer=&lay arrive=true backlay=true]
+	[tsy layer=&lay time=&t x='&"="+ x' y='&"="+ y']
+	[wait_tsy layer=&lay arrive=true backlay=true]
+	[tsy layer=&lay time=&t x='&"=-"+ x' y='&"=-"+ y' ease=Quintic.easeIn]
+	[wait_tsy layer=&lay arrive=true backlay=true]
 [endmacro]
 
 ;*********************************************************
