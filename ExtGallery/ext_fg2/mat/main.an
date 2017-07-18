@@ -1,5 +1,6 @@
 	[add_lay layer=mes class=txt]
-	[lay layer="mes" visible=true b_alpha=0 r_size=12 r_align="121" max_row=21 layout='blockProgression="rl" lineHeight="36" paddingTop="15" paddingRight="15" fontSize="24" color="0xffffff"']
+	[lay layer="mes" visible=true b_alpha=0 r_size=12 r_align="121" max_row=21 layout='blockProgression="rl" lineHeight="36" paddingTop="15" paddingRight="15" fontSize="24" color="0xffffff" fontFamily="KFhimajihoso" fontLookup="embeddedCFF" renderingMode="cff"']
+	[loadplugin fn="KFhimajihoso" join=true]
 
 	[add_lay layer=0 class=grp]
 	[add_lay layer=1 class=grp]
