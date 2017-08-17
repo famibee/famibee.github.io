@@ -3,7 +3,6 @@
   <save_ns name="com.fc2.web.famibee.AnimePng" localpath="/"/>
   <search>
     <path dir="mat"/>
-    <path dir="plg"/>
   </search>
   <coder len="0x360"/>
   <window width="300" height="300"/>

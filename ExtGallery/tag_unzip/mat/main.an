@@ -6,14 +6,14 @@
 ;*********************************************************
 ; ゲーム本編
 Web上のzipファイルをダウンロード＆解凍し、中の画像を表示します[r]
-	[unzip url=http://famibee.github.io/ExtGallery/tag_unzip_file.zip]
+	[unzip url=https://c4d3e1aafdb0e12152a1a23b1e16124f6e29f990.googledrive.com/host/0B6pZS4YMqJ_sUjczajF4TXdEYTg/000.zip]
 	[lay layer=upd fn="app-storage:/unzip/000/icon_256.png" visible=true left=40 top=40]
 [s]
 
 
 *polling
 unzip_p[r]
-	[unzip join=false url=http://famibee.github.io/ExtGallery/tag_unzip_file.zip]
+	[unzip join=false url=https://c4d3e1aafdb0e12152a1a23b1e16124f6e29f990.googledrive.com/host/0B6pZS4YMqJ_sUjczajF4TXdEYTg/000.zip]
 	[event key=enter_frame frame=100 call=true label=*polling_uz global=true]
 *polling_main
 	@[l]

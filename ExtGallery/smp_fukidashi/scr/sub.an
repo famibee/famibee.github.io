@@ -1,9 +1,3 @@
-;#USE-FONT	ipam
-;*********************************************************
-; サーバーアップのため、濁音問題があり一部ファイル名を変更
-;	ふきだし
-;	ふきだし
-;	→他のサンプルで【東北ずん子.apng】が動くのが謎だが。
 ;*********************************************************
 ;	レイヤ準備
 ; ***桜・空サンプルで使うなら、main.anに書いてね♥
@@ -19,10 +13,6 @@
 	[add_lay layer=mes class=txt]
 
 	[loadplugin fn="plgTweensy"]
-
-;	[lay layer="mes" page=fore layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
-;	[lay layer="mes" page=back layout='fontFamily="ipam" fontLookup="embeddedCFF" renderingMode="cff"']
-;	[trace text=3]
 
 
 ; ***以下はsub.anにマージ
@@ -85,7 +75,7 @@
 
 [jump label=*game_inited cond="const.game.inited"]
 [let name="const.game.inited" text=true]
-;	[loadplugin fn="ipam"]
+	[loadplugin fn="ipam"]
 
 	[loadplugin fn="plgQuake"]
 
@@ -355,7 +345,7 @@
 	[txt_lay_ふきだし]
 	[trans * layer="mes" time=%time|300]
 
-	[lay layer=ふきだし fn=Fukidashi left=&650-50 top=&62+384*0.3 scale_y=0.7 visible=true]
+	[lay layer=ふきだし fn=ふきだし left=&650-50 top=&62+384*0.3 scale_y=0.7 visible=true]
 	[tsy layer=ふきだし time=700 x="=50" y=62 scaleY=1 ease=Elastic.easeOut]
 
 	[wt]
@@ -365,7 +355,7 @@
 	[txt_lay_ふきだし]
 	[trans * layer="mes" time=%time|300]
 
-	[lay layer=ふきだし fn=FukidashiToge left=&697-50 top=&17+384*0.3 scale_y=0.7 visible=true]
+	[lay layer=ふきだし fn=ふきだしトゲ left=&697-50 top=&17+384*0.3 scale_y=0.7 visible=true]
 	[tsy layer=ふきだし time=700 x="=50" y=17 scaleY=1 ease=Elastic.easeOut]
 
 	[wt]
@@ -375,7 +365,7 @@
 	[txt_lay_ふきだし * l=580]
 	[trans * layer="mes" time=%time|300]
 
-	[lay layer=ふきだし fn=FukidashiToge left=&560+282 top=&17+384*0.3 scale_y=0.7 visible=true]
+	[lay layer=ふきだし fn=ふきだしトゲ left=&560+282 top=&17+384*0.3 scale_y=0.7 visible=true]
 	[tsy layer=ふきだし time=700 x="=-282" y=17 scaleY=1 ease=Elastic.easeOut]
 
 	[wt]
@@ -385,7 +375,7 @@
 	[txt_lay_ふきだし * l=672 pt=%pt|345]
 	[trans * layer="mes" time=%time|300]
 
-	[lay layer=ふきだし fn=FukidashiShita left=&616-50 top=308 scale_y=0.7 visible=true]
+	[lay layer=ふきだし fn=ふきだし下 left=&616-50 top=308 scale_y=0.7 visible=true]
 	[tsy layer=ふきだし time=700 x="=50" scaleY=1 ease=Elastic.easeOut]
 
 	[wt]
@@ -395,7 +385,7 @@
 	[txt_lay_ふきだし * l=480 pt=%pt|345]
 	[trans * layer="mes" time=%time|300]
 
-	[lay layer=ふきだし fn=FukidashiShita left=&460+282 top=308 scale_x=-1 scale_y=0.7 visible=true]
+	[lay layer=ふきだし fn=ふきだし下 left=&460+282 top=308 scale_x=-1 scale_y=0.7 visible=true]
 	[tsy layer=ふきだし time=700 x="=-282" scaleY=1 ease=Elastic.easeOut]
 
 	[wt]
@@ -418,7 +408,7 @@
 ; マクロ 漫符
 [macro name="漫符_ゴゴゴゴゴ"]
 	[se fn=goro03]
-	[lay layer=漫符 fn=Manpu_Gogogogo left=263 top=113 visible=true]
+	[lay layer=漫符 fn=漫符_ゴゴゴゴゴ left=263 top=113 visible=true]
 	[tsy layer=漫符 time=1000 y="=-50" ease=Back.easeOut]
 [endmacro]
 
@@ -429,7 +419,7 @@
 [endmacro]
 
 [macro name="漫符_びしっ"]
-	[lay layer=漫符 fn=Manpu_Bishi left=525 top=335 scale_x=3 scale_y=3 visible=true]
+	[lay layer=漫符 fn=漫符_びしっ left=525 top=335 scale_x=3 scale_y=3 visible=true]
 	[tsy layer=漫符 time=500 scaleX=1 scaleY=1 ease=Back.easeOut]
 	[se fn=WhipD@22]
 [endmacro]

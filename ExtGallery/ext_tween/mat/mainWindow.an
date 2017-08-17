@@ -1,0 +1,30 @@
+	[event global=true key=f5 label=*reload_script cond="const.flash.system.Capabilities.isDebugger"]
+
+	[call fn=ext_*]		; ext_**.anというスクリプトを全部コールする
+
+	&an.chkFontMode=false
+;*********************************************************
+; ゲーム本編
+	[window centering=true width=800 height=600]
+
+	[antw from=1 to=0.1 time=2000 update=*update finish=*fin_0]
+[s]
+
+*update
+	&w = 800 *an.antw.v
+	&h = 600 *an.antw.v
+	[title text="&'v:'+ an.antw.v +'w:'+ w +'h:'+ h"]
+	[window width=&w height=&h]
+[return]
+
+*fin_0
+	[antw from=0.1 to=1 time=2000 update=*update finish=*fin_1]
+[s]
+
+*fin_1
+	[title text=ok.]
+[s]
+;*********************************************************
+
+*reload_script
+[reload_script]
