@@ -95,6 +95,9 @@
 	[clear_前効果]
 	[clear_漫符]
 
+	[let_search name=i text=&dsp_lays reg=',前効果,漫符']
+	[let name=dsp_lays text="&dsp_lays+',前効果,漫符'" cond=i==-1]
+
 	&save:ext_manga.init_漫画表現4sys_title_start = true
 [endmacro]
 
