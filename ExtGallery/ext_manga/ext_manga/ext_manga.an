@@ -1,6 +1,6 @@
 ;*********************************************************
 ;@EXT_DESC	漫画表現
-;@VER		2017.7.28.000	新規作成
+;@VER		2017.8.22.000	新規作成
 ;*********************************************************
 
 ;*********************************************************
@@ -57,7 +57,7 @@
 		[trans layer=前効果 time=%time|300 *]
 	[else]
 		[lay layer=前効果 fn=%fn|ext_manga_shuchusen left=&-const.an.xmlConfig.window.width/2 top=&-const.an.xmlConfig.window.height/2 scale_x=2 scale_y=2 visible=true]
-		[tsy layer=前効果 time=500 x=0 y=0 scaleX=1 scaleY=1 ease=Circular.easeIn]
+		[tsy layer=前効果 time=%time|500 x=0 y=0 scaleX=1 scaleY=1 ease=Circular.easeIn]
 	[endif]
 [endmacro]
 ; 集中線素材（商用利用可）
