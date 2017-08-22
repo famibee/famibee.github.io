@@ -1,0 +1,115 @@
+;*********************************************************
+;@EXT_DESC	漫画表現
+;@VER		2017.7.28.000	新規作成
+;*********************************************************
+
+;*********************************************************
+; 以降はノータッチで
+	[add_lay layer=前効果 class=grp cond=!const.an.lay.前効果]
+	[add_lay layer=漫符 class=grp cond=!const.an.lay.漫符]
+	[loadplugin fn=plgTweensy join=true cond="!const.an.plg.plgTweensy && !const.an.plg.plgBetweenAS3"]
+
+;*********************************************************
+[macro name="漫符_ドドド"]
+	[chkinit_漫画表現]
+	[clear_漫符]
+
+	[lay layer=漫符 dive='&float?false:"mes"' float='&float?true:false' cond=const.an.lay.mes]
+	[playse fn=ext_manga_goro03 join=false]
+	[clear_lay layer=漫符 page=fore]
+	[lay layer=漫符 fn=ext_manga_004_dododo left=%left|'&(const.an.xmlConfig.window.width-800)*1/2' top=%top|'&(const.an.xmlConfig.window.height-376)*1/5' visible=true *]
+	[tsy layer=漫符 time=%time|1000 y=%y|'=-50' ease=Back.easeOut]
+[endmacro]
+
+;*********************************************************
+[macro name="漫符_ゴゴゴゴゴ"]
+	[chkinit_漫画表現]
+	[clear_漫符]
+
+	[let name=dive text=%dive|'mes']
+	[lay layer=漫符 dive='&mp:float?false:dive' float=%float cond=const.an.lay.mes]
+	[playse fn=ext_manga_goro03 join=false]
+	[clear_lay layer=漫符 page=fore]
+	[lay layer=漫符 fn=ext_manga_go5 left=%left|'&(const.an.xmlConfig.window.width-434)*2/3' top=%top|'&(const.an.xmlConfig.window.height-112)*1/5' visible=true *]
+	[tsy layer=漫符 time=%time|1000 y=%y|'=-50' ease=Back.easeOut]
+[endmacro]
+; 効果音素材（商用利用可）
+;	ext_manga_goro03：ザ・マッチメイカァズ2nd 【フリー効果音素材】 http://osabisi.sakura.ne.jp/m2/
+
+;*********************************************************
+[macro name="clear_漫符"]
+	[stop_tsy layer=漫符]
+	[clear_lay layer=漫符 page=both]
+[endmacro]
+
+
+;*********************************************************
+; 集中線
+[macro name="集中線"]
+	[chkinit_漫画表現]
+	[clear_前効果]
+
+	[let name=dive text=%dive|'mes']
+	[lay layer=前効果 dive='&mp:float?false:dive' float=%float cond=const.an.lay.mes]
+	[clear_lay layer=前効果 page=both]
+	[if exp=mp:rule]
+		[lay layer=前効果 fn=%fn|ext_manga_shuchusen page=back visible=true]
+		[trans layer=前効果 time=%time|300 *]
+	[else]
+		[lay layer=前効果 fn=%fn|ext_manga_shuchusen left=&-const.an.xmlConfig.window.width/2 top=&-const.an.xmlConfig.window.height/2 scale_x=2 scale_y=2 visible=true]
+		[tsy layer=前効果 time=500 x=0 y=0 scaleX=1 scaleY=1 ease=Circular.easeIn]
+	[endif]
+[endmacro]
+; 集中線素材（商用利用可）
+;	ext_manga_shuchusen：「【フリー素材】集中線+トーン素材ver1.0」/「漫博堂」 https://www.pixiv.net/member_illust.php?mode=medium&illust_id=43390207
+;	マンガ素材 イラレ用epsとpng画像素材集 http://www.manga-sozai.com/data/
+
+;*********************************************************
+[macro name="clear_前効果"]
+	[stop_tsy layer=前効果]
+	[clear_lay layer=前効果 page=both]
+[endmacro]
+
+
+; 共通処理
+;*********************************************************
+[macro name="wait_漫画表現"]
+	[wait_tsy layer=前効果 cond='! mp:no_wait']
+	[wait_tsy layer=漫符 cond='! mp:no_wait']
+	[wt]
+[endmacro]
+
+;*********************************************************
+[macro name="fo_漫画表現"]
+	[wait_漫画表現]
+	[clear_lay layer=前効果 page=back]
+	[clear_lay layer=漫符 page=back]
+	[trans * layer=前効果,漫符 time=%time|300][wt]
+[endmacro]
+
+
+;*********************************************************
+; 初期化と後始末など
+&save:ext_manga.init_漫画表現4sys_title_start = false
+[macro name="init_漫画表現4sys_title_start"]
+	[clear_前効果]
+	[clear_漫符]
+
+	&save:ext_manga.init_漫画表現4sys_title_start = true
+[endmacro]
+
+&save:ext_manga.init_漫画表現4sys_scenario_start = false
+[macro name="init_漫画表現4sys_scenario_start"]
+	[clear_前効果]
+	[clear_漫符]
+
+	&save:ext_manga.init_漫画表現4sys_scenario_start = true
+[endmacro]
+[macro name="chkinit_漫画表現"]
+	[trace text='sub.an 内の[sys_title_start]冒頭に[init_漫画表現4sys_title_start]を追加してください' cond='! save:ext_manga.init_漫画表現4sys_title_start']
+	[trace text='sub.an 内の[sys_scenario_start]冒頭に[init_漫画表現4sys_scenario_start]を追加してください' cond='! save:ext_manga.init_漫画表現4sys_scenario_start']
+[endmacro]
+
+;*********************************************************
+
+[return]

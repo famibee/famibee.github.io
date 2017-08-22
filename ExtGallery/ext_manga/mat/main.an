@@ -1,0 +1,22 @@
+	[add_lay layer=mes class=txt]
+	[lay layer="mes" visible=true b_alpha=0 r_size=12 r_align="121" max_col=20 max_row=21 layout='blockProgression="tb" lineHeight="36" paddingTop="400" paddingLeft="15" fontSize="24" color="0xffffff"']
+
+	[call fn=ext_*]		; ext_**.anというスクリプトを全部コールする
+
+	&an.chkFontMode=false
+;*********************************************************
+	[init_漫画表現4sys_title_start]
+	[init_漫画表現4sys_scenario_start]
+;*********************************************************
+
+	[集中線]
+	集中線[wait_漫画表現]
+	[l][r]
+	
+	[漫符_ドドド]
+	漫符_ドドド[wait_漫画表現]
+	[l][r]
+	
+	[漫符_ゴゴゴゴゴ]
+	漫符_ゴゴゴゴゴ[wait_漫画表現]
+[s]

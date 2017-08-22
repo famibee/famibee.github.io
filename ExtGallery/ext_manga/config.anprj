@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><config>
+	<first_script fn="main"/>
+	<save_ns name="com.fc2.web.famibee.ext_manga" localpath="/"/>
+
+	<search>
+		<path dir="mat"/>
+	<path dir="ext_manga"/></search>
+	<coder len="0x360"/>
+	<window width="800" height="600"/>
+	<anbook title="ext_manga拡張機能" creator="famibee" cre_url="https://twitter.com/#!/ugainovel" publisher="電子演劇部" pub_url="http://famibee.blog38.fc2.com/" detail="「ドドド」「ゴゴゴ」「集中線」「ゆらめき集中線」を簡単に導入できる漫画表現拡張機能" nocode="true" pack_exc="\.swf\.cache" version="1.0"/>
+	<init bg_color="0x4488FF"/>
+</config>

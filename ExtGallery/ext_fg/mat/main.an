@@ -3,8 +3,6 @@
 	[add_lay layer=mes class=txt]
 	[lay layer="mes" visible=true b_alpha=0 r_size=12 r_align="121" max_col=20 max_row=21 layout='blockProgression="tb" lineHeight="36" paddingTop="15" paddingLeft="15" fontSize="24" color="0x000000"']
 
-	[loadplugin fn="breakline"]	; クリック待ちswf
-
 	[call fn=ext_*]		; ext_**.anというスクリプトを全部コールする
 
 	&an.chkFontMode=false
