@@ -1,5 +1,6 @@
 ;*********************************************************
 ;@EXT_DESC	ボイスをより簡単に扱う
+;@VER		2017.8.24.004	[voice]のみ cache=false とする
 ;@VER		2017.7.8.003	[se]を sub.an に移動
 ;@VER		2017.7.7.002	〔名前〕のみで完結するように。
 ;				カウンタ初期化追記を促すように
@@ -30,9 +31,9 @@
 ; マクロ 音声を再生
 &lastVoice = ''	; 初期値・クリア
 [macro name="voice"]
-	[let name="lastVoice" text=%fn cond="mp:fn != null"]
+	[let name=lastVoice text=%fn cond="mp:fn != null"]
 	[stopse buf=%buf|音声]
-	[se * buf=%buf|音声 fn=%fn]
+	[se * buf=%buf|音声 fn=%fn cache=false]
 [endmacro]
 
 ;*********************************************************
