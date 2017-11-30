@@ -1,16 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <config>
-  <first_script fn="main"/>
-  <save_ns name="com.fc2.blog38.famibee.anbooks_made.Fukidashi" localpath="/"/>
-  <search>
-    <path dir="bg"/>
-    <path dir="fg"/>
-    <path dir="img"/>
-    <path dir="sys"/>
-    <path dir="scr"/>
-    <path dir="snd"/>
-  </search>
-  <coder len="0x360"/>
-  <window width="1024" height="768"/>
-  <anbook title="Fukidashiプロジェクト" creator="famibee" cre_url="https://twitter.com/#!/ugainovel" publisher="電子演劇部" pub_url="http://famibee.blog38.fc2.com/" detail="吹き出し表示のサンプルです" nocode="true"/>
-  <init/>
+	<first_script fn="main"/>
+	<save_ns name="com.fc2.blog38.famibee.anbooks_made.Fukidashi" localpath="/"/>
+	<search>
+		<path dir="bg"/>
+		<path dir="fg"/>
+		<path dir="img"/>
+		<path dir="sys"/>
+		<path dir="scr"/>
+		<path dir="snd"/>
+	</search>
+	<coder len="0x360"/>
+	<window width="1024" height="768"/>
+	<anbook title="Fukidashiプロジェクト" creator="famibee" cre_url="https://twitter.com/#!/ugainovel" publisher="電子演劇部" pub_url="http://famibee.blog38.fc2.com/" detail="吹き出し表示のサンプルです" version="1.0" nocode="true"/>
 </config>

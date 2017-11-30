@@ -1,5 +1,6 @@
 ;*********************************************************
 ;@EXT_DESC	ボイスをより簡単に扱う
+;@VER		2017.11.30.005	再生をjoin=trueとし、[se]不使用
 ;@VER		2017.8.24.004	[voice]のみ cache=false とする
 ;@VER		2017.7.8.003	[se]を sub.an に移動
 ;@VER		2017.7.7.002	〔名前〕のみで完結するように。
@@ -33,13 +34,13 @@
 [macro name="voice"]
 	[let name=lastVoice text=%fn cond="mp:fn != null"]
 	[stopse buf=%buf|音声]
-	[se * buf=%buf|音声 fn=%fn cache=false]
+	[playse * buf=%buf|音声 fn=%fn cache=false]
 [endmacro]
 
 ;*********************************************************
 ; マクロ 音声待ち
 [macro name="vw"]
-	[ws buf=%buf|音声]
+	[ws * buf=%buf|音声]
 [endmacro]
 
 
@@ -66,7 +67,7 @@
 ;*********************************************************
 ; マクロ クリック待ち・改行
 [macro name="lr" exist_err=false]
-	[ws buf=%buf|音声 canskip=true cond="an.auto.enabled"]
+	[vw * canskip=true cond="an.auto.enabled"]
 	[l][r]
 	&lastVoice = ''
 [endmacro]
@@ -74,7 +75,7 @@
 ;*********************************************************
 ; マクロ クリック待ち・改ページ
 [macro name="pr" exist_err=false]
-	[ws buf=%buf|音声 canskip=true cond="an.auto.enabled && !an.skip.enabled"]
+	[vw * canskip=true cond="an.auto.enabled && !an.skip.enabled"]
 	[p visible=%visible|true]
 	[er]
 	[record_place layer=&dsp_lays]	; ページ冒頭でセーブポイント

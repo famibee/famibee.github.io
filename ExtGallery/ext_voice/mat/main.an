@@ -7,6 +7,9 @@
 	[event global=true call=true key=v label=*repeat_voice]
 		; 「v」を押すと直前の声を再度再生
 
+	[event global=true call=true key=a label=*toggle_auto_read]
+	[event global=true call=true key=f label=*toggle_skip]
+
 	[call fn=ext_*]		; ext_**.anというスクリプトを全部コールする
 
 	&an.chkFontMode=false
@@ -14,12 +17,6 @@
 ;	[lr]と書くのが面倒なので一文字マクロ
 [char2macro char=@ name=lr]
 
-;*********************************************************
-; マクロ 効果音（ext_voice.an が必要とする）
-[macro name="se"]
-	[stopse * cond="mp:fn == null"]
-	[playse * cond="mp:fn != null" join=false]
-[endmacro]
 ;*********************************************************
 ; ゲーム本編
 	[record_place]		; [reload_script]チェック用
@@ -114,3 +111,15 @@
 
 *reload_script
 [reload_script]
+
+*toggle_auto_read
+	[let name="tmp:an.auto.enabled" text=true]
+	[set_cancel_skip]
+	[trace text="自動読み進みOn"]
+	[return]
+
+*toggle_skip
+	[let name="tmp:an.skip.enabled" text=true]
+	[set_cancel_skip]
+	[trace text="強制スキップ On"]
+	[return]
