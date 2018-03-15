@@ -14,8 +14,8 @@
 ; ゲーム本編
 
 [lay layer=bg page=fore visible=true fn=b1神社への石段_昼]
-;	[lay layer=upd page=fore visible=true fn=東北ずん子ap]
-	[lay layer=upd page=fore visible=true loop=true fn=東北ずん子]
+;	[lay layer=upd page=fore visible=true fn=Zunkoap]
+	[lay layer=upd page=fore visible=true loop=true fn=Zunko]
 
 
 
