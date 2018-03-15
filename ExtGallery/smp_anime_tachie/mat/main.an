@@ -1,6 +1,8 @@
 ;#USE-FONT	KFhimajihoso
+	[add_lay layer=bg class=grp]
 	[add_lay layer=mes class=txt]
-	[add_lay layer=upd class=grp]
+;	[add_lay layer=upd class=grp]
+	[add_lay layer=upd class=mov]
 	[lay layer="mes" visible=true b_alpha=0 r_size=12 r_align="121" layout='blockProgression="rl" lineHeight="36" paddingTop="15" paddingRight="15" fontSize="24" color="0xffffff" fontFamily="KFhimajihoso" fontLookup="embeddedCFF" renderingMode="cff"']
 	&an.chkFontMode=false
 
@@ -11,7 +13,10 @@
 ;*********************************************************
 ; ゲーム本編
 
-[lay layer=upd page=fore visible=true fn=東北ずん子]
+[lay layer=bg page=fore visible=true fn=b1神社への石段_昼]
+;	[lay layer=upd page=fore visible=true fn=東北ずん子ap]
+	[lay layer=upd page=fore visible=true loop=true fn=東北ずん子]
+
 
 
 *loop
