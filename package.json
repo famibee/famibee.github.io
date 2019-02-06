@@ -1,0 +1,18 @@
+{
+	"name": "famibee_page",
+	"version": "1.0.0",
+	"description": "famibee page",
+	"appBundleId": "com.fc2.blog.famibee.page",
+	"author": "famibee",
+	"license": "MIT",
+	"dependencies": {},
+	"devDependencies": {
+		"webpack": "^4.29.1",
+		"webpack-cli": "^3.2.3",
+		"webpack-dev-server": "^3.1.14"
+	},
+	"scripts": {
+		"start": "webpack-dev-server --config ./src/wds.config.js",
+		"npm_check_updates_do": "ncu -a && npm update && npm i -D"
+	}
+}
