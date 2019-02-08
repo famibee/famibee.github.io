@@ -9,6 +9,7 @@ module.exports = {
 
 	devServer: {
 		contentBase: './SKYNovel',
+		port: 8082,
 		openPage: 'tag.htm#development=1',
 		watchContentBase: true,
 		open: true

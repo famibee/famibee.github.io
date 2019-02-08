@@ -451,17 +451,15 @@
 <h4>レイヤを追加する。</h4>
 <p class="mb2 px1">
 
-<p>レイヤはページの裏表があり、文字レイヤや画像レイヤなどの種類があります。
-	※HTMLレイヤのみ、Flash環境では使用不可です。</p>
+レイヤはページの裏表があり、文字レイヤや画像レイヤなどの種類があります。<br>
+レイヤの追加と同時に、[lay]に指定できる属性を指定できます。（内部的に[lay]を呼ぶ）<br>
+これにより、[add_lay visible=false ...]等とすると、非表示状態でレイヤ追加できます。
+
 <table><tr><th>属性</th><th>必須</th><th>省略時</th><th>値域・型</th><th>コメント</th></tr>
 <tr class="y"><td>layer</td><td>y</td><td></td><td>String</td><td>レイヤ名を指定する。<br>未使用のレイヤ名でなければエラー＆アプリ停止</td></tr>
 <tr class="y"><td>class</td><td>y</td><td></td><td>grp（画像レイヤ）、<br>txt（文字レイヤ）、<br>またはプラグインで追加した値</td><td>レイヤの種類</td></tr>
+<tr><td colspan="3">（その他）</td><td colspan="2">[lay]に指定できる属性</td></tr>
 </table>
-<h3><a id="blendmodeの解説blendmodeの解説"></a>blendModeの解説</h3>
-<p>[lay][add_face][button]で同様ですが、blendmode属性に以下のものを使用可能です。</p>
-<p>Photoshop<br>ブレンドモード名 | AIRNovel<br>での<br>blendmode<br>属性の値 | ActionScript<br>での<br>blendmode<br>値 | コメント
-	-- | -- | -- | -- | --
-	加算 | （使えない） | add | 表示オブジェクトの要素カラーの値を背景色に加算し、その際に上限 | 0xFF を適用します。</p>
 
 </p>
 
@@ -502,7 +500,7 @@
 <tr><td>page</td><td></td><td>fore</td><td>fore、back</td><td>ページの裏表</td></tr>
 <tr><td>visible</td><td></td><td>現在値</td><td>Boolean</td><td>true：表示、false：非表示</td></tr>
 <tr><td>alpha</td><td></td><td>1.0</td><td>0.0〜1.0（実数）</td><td>レイヤの透過度。0（完全透明）〜0.5（半透明）〜1（不透明）</td></tr>
-<tr><td>blendmode</td><td></td><td>何もしない</td><td>ブレンドモード名（"screen"など）</td><td>このレイヤと下のレイヤとの重なりにおいて、<br>ドット単位で色のブレンド演算を行なう。<br>詳細はblendModeの解説を参照。</td></tr>
+<tr><td>blendmode</td><td></td><td>何もしない</td><td>ブレンドモード名（"screen"など）</td><td>このレイヤと下のレイヤとの重なりにおいて、<br>ドット単位で色のブレンド演算を行なう。<br>詳細は<a href="#clearvar">blendModeの解説</a>を参照。</td></tr>
 <tr><td>pos</td><td></td><td>c※</td><td>c、l、r、横座標</td><td>主に立ち絵に使う。横と縦座標を同時に設定する。<br>横座標は指定した値（文字cの場合は画面中央、lは左寄り、rは右寄り）に設定し、画像下端を画面下端に接するように自動計算する。</td></tr>
 <tr><td>left</td><td></td><td>0</td><td>画面左上を(0, 0)とする横座標※</td><td>レイヤやボタン左端の画面左端からの距離</td></tr>
 <tr><td>center</td><td></td><td>(↑と同じ)</td><td>(↑と同じ)</td><td>レイヤやボタン中央の画面左端からの距離</td></tr>
@@ -518,6 +516,61 @@
 <tr><td>float</td><td></td><td>何もしない</td><td>Boolean</td><td>true：レイヤを最前面に移動する。<br>※最前面とは、Flashのstage.addChildにおける重なり順</td></tr>
 <tr><td>index</td><td></td><td>何もしない</td><td>0〜</td><td>レイヤをindexで指定したインデックスに移動する。<br>※インデックスは、FlashのStage.setChildIndex()を参照。</td></tr>
 <tr><td>dive</td><td></td><td>何もしない</td><td>レイヤ名</td><td>レイヤをdiveで指定したレイヤのすぐ後ろに潜り込ませる。<br>「plg:プラグイン名」と記述する事でプラグインも指定できる。</td></tr>
+</table>
+
+</p>
+
+
+<h2 id="blendMode" class="w-heading">blendModeの解説</h2>
+<p class="mb2 px1">
+
+	<span style="color: red;">暫定版です、SKYNovelで指定できる値については追って記述します（_ _）</span>
+
+<table><tr><th>Photoshop ブレンドモード名</th><th>AIRNovel での blendmode 属性の値</th><th>ActionScript での blendmode 値</th><th>コメント</th></tr>
+<tr><td>加算</td><td>（使えない）</td><td>add</td><td>
+	表示オブジェクトの要素カラーの値を背景色に加算し、その際に上限 0xFF を適用します。
+</td></tr>
+<tr><td>アルファ</td><td>（使えない）</td><td>alpha</td><td>
+	表示オブジェクトの各ピクセルのアルファ値を背景に適用します。
+</td></tr>
+<tr class="success"><td>比較 (暗)</td><td>この値→</td><td>darken</td><td>
+	表示オブジェクトの要素カラーと背景色のうち暗い方（値が小さい方）の色を選択します。
+</td></tr>
+<tr class="success"><td>差の絶対値</td><td>この値→</td><td>difference</td><td>表示オブジェクトの各ピクセルのアルファ値を
+	背景に適用します。</td></tr>
+<tr><td>消去</td><td>（使えない）</td><td>erase</td><td>
+	表示オブジェクトのアルファ値に基づいて背景を消去します。
+</td></tr>
+<tr class="success"><td>ハードライト</td><td>この値→</td><td>hardlight</td><td>
+	表示オブジェクトの暗さに基づいて、各ピクセルの色を調整します。
+</td></tr>
+<tr><td>反転</td><td>（使えない）</td><td>invert</td><td>
+	背景を反転します。
+</td></tr>
+<tr><td>（なし）</td><td>（使えない）</td><td>layer</td><td>
+	表示オブジェクトに関する透明度グループを強制的に作成します。
+</td></tr>
+<tr class="success"><td>比較 (明)</td><td>この値→</td><td>lighten</td><td>
+	表示オブジェクトの要素カラーと背景色のうち明るい方（値が大きい方）の色を選択します。
+</td></tr>
+<tr class="success"><td>乗算</td><td>この値→</td><td>multiply</td><td>
+	表示オブジェクトの要素カラーの値と背景色の要素カラーの値を乗算した後、0xFF で割って正規化し、色を暗くします。
+</td></tr>
+<tr class="success"><td>標準</td><td>この値→</td><td>normal</td><td>
+	表示オブジェクトは、背景の前に表示されます。（なにもしない）
+</td></tr>
+<tr class="success"><td>オーバーレイ</td><td>この値→</td><td>overlay</td><td>
+	背景の暗さに基づいて、各ピクセルの色を調整します。
+</td></tr>
+<tr class="success"><td>スクリーン</td><td>この値→</td><td>screen</td><td>
+	表示オブジェクトの色の補数（逆）と背景色の補数を乗算して、ブリーチ効果を得ます。
+</td></tr>
+<tr><td>（なし）</td><td>（使えない）</td><td>shader</td><td>
+	シェーダーを使用して、オブジェクト間のブレンドを定義します。
+</td></tr>
+<tr><td>減算</td><td>（使えない）</td><td>subtract</td><td>
+	結果の下限を 0 として、表示オブジェクトの要素カラーの値をその背景色の値から減算します。
+</td></tr>
 </table>
 
 </p>
@@ -945,7 +998,7 @@
 <tr><td>fn</td><td></td><td>属性nameの値</td><td>画像ファイル名</td><td>表示する画像、swf</td></tr>
 <tr><td>dx</td><td></td><td>0</td><td>基本画像左上を(0, 0)とする座標</td><td>差分画像の表示横位置</td></tr>
 <tr><td>dy</td><td></td><td>0</td><td>(↑と同じ)</td><td>差分画像の表示縦位置</td></tr>
-<tr><td>blendmode</td><td></td><td>何もしない</td><td>ブレンドモード名（"screen"など）</td><td>このレイヤと下のレイヤとの重なりにおいて、<br>ドット単位で色のブレンド演算を行なう。<br>詳細はblendModeの解説を参照。</td></tr>
+<tr><td>blendmode</td><td></td><td>何もしない</td><td>ブレンドモード名（"screen"など）</td><td>このレイヤと下のレイヤとの重なりにおいて、<br>ドット単位で色のブレンド演算を行なう。<br>詳細は<a href="#clearvar">blendModeの解説</a>を参照。</td></tr>
 </table>
 <p>例えば同じ画像で差分表示位置やブレンドモードが違う登録をしたい場合、<br>
 	[add_face name="a_normal" fn="画像" dx=0 dy=0]<br>
@@ -1469,7 +1522,7 @@
 <tr><td>dragmove_label</td><td>...</td><td>...</td><td>...</td><td>(↑と同じ)</td></tr>
 <tr><td>dragmove_arg</td><td></td><td></td><td>String</td><td>指定した場合、ドラッグ中コール先で「&amp;const.an.eventArg」にて値を受け取れる</td></tr>
 <tr><td>alpha</td><td></td><td>1.0</td><td>0.0〜1.0（実数）</td><td>透過度。0（完全透明）〜0.5（半透明）〜1（不透明）</td></tr>
-<tr><td>blendmode</td><td></td><td>何もしない</td><td>ブレンドモード名（"screen"など）</td><td>このボタンと下のレイヤとの重なりにおいて、<br>ドット単位で色のブレンド演算を行なう。<br>詳細はblendModeの解説を参照。</td></tr>
+<tr><td>blendmode</td><td></td><td>何もしない</td><td>ブレンドモード名（"screen"など）</td><td>このボタンと下のレイヤとの重なりにおいて、<br>ドット単位で色のブレンド演算を行なう。<br>詳細は<a href="#clearvar">blendModeの解説</a>を参照。</td></tr>
 <tr><td>rotation</td><td></td><td>0</td><td>-180〜180</td><td>回転角を度単位で指定。時計回りは0～180、反時計回りは0～-180を指定。 左上を中心に回る</td></tr>
 <tr><td>scale_x</td><td></td><td>1.0</td><td>正負の実数値</td><td>横方向を何倍に拡大／縮小するか。負の値ならレイヤを左右反転</td></tr>
 <tr><td>scale_y</td><td></td><td>1.0</td><td>正負の実数値</td><td>縦方向を何倍に拡大／縮小するか。負の値ならレイヤを上下反転</td></tr>
